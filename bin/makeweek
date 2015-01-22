@@ -1,0 +1,35 @@
+#!/usr/bin/env ruby
+
+#
+# 前日はから一週間を表示します
+# さらにクリップボードに一週間をコピーします
+#
+
+require 'date'
+
+def format_date(date)
+  str_weeks = ['日', '月', '火', '水', '木', '金', '土']
+  str = "#{date.strftime("%Y/%m/%d")}(#{str_weeks[date.strftime("%w").to_i]})"
+  #str = "#{date.strftime("%Y/%m/%d")}"
+  #str = "a"
+  str
+end
+
+base_date = Date.today
+
+# 第1引数から今日の日付をたす
+if ARGV.length >= 1
+  base_date += ARGV[0].to_i
+end
+option_str = ""
+if ARGV.length == 2
+  option_str = "週報 : "
+end 
+end_date = base_date - 1
+start_date = end_date - 6 
+
+str_start_date = format_date(start_date) 
+str_end_date = format_date(end_date)
+from_to_dates = "#{option_str}#{str_start_date}〜#{str_end_date}"
+puts from_to_dates
+IO.popen('pbcopy', 'w') {|f| f << from_to_dates} # クリップボードにコピーします
