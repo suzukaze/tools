@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+
+#
+# pwdの結果をクリップボードに入れる
+#
+#
+
+path = `pwd`
+puts path
+IO.popen('pbcopy', 'w') {|f| f << path} # クリップボードにコピーします
+
