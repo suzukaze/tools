@@ -6,6 +6,7 @@
 #
 
 path = `pwd`
+path.chomp! # 改行コードを削除
 puts path
 IO.popen('pbcopy', 'w') {|f| f << path} # クリップボードにコピーします
 
